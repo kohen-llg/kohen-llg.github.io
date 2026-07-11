@@ -84,9 +84,16 @@
         <a href="#harga" class="hover:text-ink transition">Daftar Harga</a>
         <a href="#seduh" class="hover:text-ink transition">Cara Seduh</a>
       </nav>
-      <a href="#harga" class="text-sm font-semibold bg-ink text-parchment px-4 py-2 rounded-full hover:bg-wine transition">Lihat Harga</a>
+      <a :href="waLink()" target="_blank" rel="noopener" class="text-sm font-semibold bg-ink text-parchment px-4 py-2 rounded-full hover:bg-wine transition">Pesan via WhatsApp</a>
     </div>
   </header>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a :href="waLink()" target="_blank" rel="noopener"
+     class="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#25D366] text-white pl-3 pr-5 py-3 rounded-full shadow-lg hover:scale-105 active:scale-95 transition group">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.02 2C6.5 2 2.02 6.48 2.02 12c0 1.94.54 3.75 1.47 5.3L2 22l4.86-1.44A9.94 9.94 0 0 0 12.02 22C17.55 22 22 17.52 22 12S17.55 2 12.02 2zm0 18.13c-1.7 0-3.28-.5-4.61-1.36l-.33-.2-2.88.85.86-2.8-.22-.34a8.1 8.1 0 0 1-1.29-4.28c0-4.5 3.66-8.15 8.16-8.15 4.5 0 8.15 3.66 8.15 8.15s-3.65 8.13-8.15 8.13zm4.48-6.08c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.78.95-.14.16-.29.18-.53.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.11-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.32-.75-1.8-.2-.48-.4-.42-.55-.42-.14 0-.3-.02-.46-.02-.16 0-.42.06-.64.3-.22.24-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.05.14-1.16-.06-.1-.22-.16-.46-.28z"/></svg>
+    <span class="text-sm font-semibold hidden sm:inline">Chat WhatsApp</span>
+  </a>
 
   <!-- HERO -->
   <section id="top" class="grain relative bg-ink text-parchment2 pt-16 overflow-hidden">
@@ -104,7 +111,7 @@
           KOHEN menyusuri kebun kopi Sumatera, Jawa, Bali, Sulawesi hingga Flores untuk satu tujuan: secangkir kopi hitam yang jujur rasanya — 100% kopi murni, tanpa campuran, tanpa kompromi.
         </p>
         <div class="mt-10 flex flex-wrap items-center gap-4">
-          <a href="#origin" class="bg-gold text-ink font-semibold px-6 py-3 rounded-full text-sm hover:bg-parchment2 transition">Jelajahi Karakter Rasa</a>
+          <a :href="waLink()" target="_blank" rel="noopener" class="bg-gold text-ink font-semibold px-6 py-3 rounded-full text-sm hover:bg-parchment2 transition">Pesan via WhatsApp</a>
           <a href="#harga" class="border border-parchment2/30 text-parchment2 font-semibold px-6 py-3 rounded-full text-sm hover:border-gold hover:text-gold transition">Cek Daftar Harga</a>
         </div>
       </div>
@@ -303,6 +310,7 @@
           <p class="text-xs font-mono uppercase tracking-widest text-gold mb-4">Ikuti Kami</p>
           <p class="text-sm">Facebook — Kohen Coffee</p>
           <p class="text-sm mt-1">Instagram — @kohen.coffee</p>
+          <p class="text-sm mt-4"><a :href="waLink()" target="_blank" rel="noopener" class="text-gold hover:underline">WhatsApp: 0813-6232-636</a></p>
         </div>
       </div>
       <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs font-mono text-parchment2/40">
@@ -434,6 +442,11 @@ new Vue({
     },
     pricesByCategory(cat) {
       return this.prices.filter(p => p.cat === cat);
+    },
+    waLink() {
+      const phone = '628136232636';
+      const msg = encodeURIComponent('Halo KOHEN, saya ingin bertanya tentang kopi.');
+      return `https://wa.me/${phone}?text=${msg}`;
     }
   }
 });
