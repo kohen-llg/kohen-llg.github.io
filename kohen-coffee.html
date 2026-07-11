@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KOHEN — Kopi Hitam Enak dari Seluruh Nusantara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/vue@2/dist/vue.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#241209',
+          parchment: '#EAE0C8',
+          parchment2: '#F3ECDA',
+          gold: '#C6992F',
+          robusta: '#8B5A2B',
+          arabika: '#52633C',
+          wine: '#6E2436',
+        },
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['IBM Plex Mono', 'monospace'],
+        },
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { background: #EAE0C8; }
+  .grain {
+    position: relative;
+  }
+  .grain::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+  .stamp-badge {
+    background:
+      radial-gradient(circle at center, transparent 62%, currentColor 63%, currentColor 66%, transparent 67%),
+      radial-gradient(circle at center, currentColor 0 2px, transparent 2px);
+    background-size: 100% 100%, 8px 8px;
+    background-position: center, center;
+    background-repeat: no-repeat, round;
+  }
+  .divider-dot {
+    background-image: radial-gradient(circle, rgba(36,18,9,0.35) 1.2px, transparent 1.2px);
+    background-size: 8px 8px;
+  }
+  .tab-underline {
+    transition: all .25s ease;
+  }
+  ::selection { background: #C6992F; color: #241209; }
+  .card-flip-enter-active, .card-flip-leave-active { transition: opacity .25s ease, transform .25s ease; }
+  .card-flip-enter, .card-flip-leave-to { opacity: 0; transform: translateY(6px); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body class="font-body text-ink antialiased">
+
+<div id="app">
+
+  <!-- NAV -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-parchment/90 backdrop-blur-sm border-b border-ink/10">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 flex items-center justify-between h-16">
+      <a href="#top" class="flex items-center gap-2 font-display font-semibold text-lg tracking-wide">
+        <span class="w-2.5 h-2.5 rounded-full bg-ink inline-block"></span>
+        KOHEN
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-ink/70">
+        <a href="#origin" class="hover:text-ink transition">Karakter Rasa</a>
+        <a href="#signature" class="hover:text-ink transition">Signature</a>
+        <a href="#harga" class="hover:text-ink transition">Daftar Harga</a>
+        <a href="#seduh" class="hover:text-ink transition">Cara Seduh</a>
+      </nav>
+      <a href="#harga" class="text-sm font-semibold bg-ink text-parchment px-4 py-2 rounded-full hover:bg-wine transition">Lihat Harga</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="grain relative bg-ink text-parchment2 pt-16 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.15]" style="background-image: radial-gradient(circle at 20% 20%, #C6992F 0, transparent 40%), radial-gradient(circle at 85% 70%, #8B5A2B 0, transparent 45%);"></div>
+    <div class="max-w-6xl mx-auto px-6 md:px-10 py-20 md:py-32 relative">
+      <div class="flex flex-col items-start">
+        <div class="flex items-center gap-2 text-xs font-mono tracking-[0.25em] text-gold uppercase mb-8">
+          <span class="w-8 h-px bg-gold/60"></span>
+          Grade 1 &nbsp;·&nbsp; Lubuklinggau, Sumatera Selatan
+        </div>
+        <h1 class="font-display font-semibold leading-[0.95] text-[13vw] md:text-[6.2vw] max-w-4xl">
+          Kopi hitam enak,<br> dari seluruh <span class="italic font-medium text-gold">nusantara.</span>
+        </h1>
+        <p class="mt-8 max-w-xl text-parchment2/70 text-base md:text-lg leading-relaxed">
+          KOHEN menyusuri kebun kopi Sumatera, Jawa, Bali, Sulawesi hingga Flores untuk satu tujuan: secangkir kopi hitam yang jujur rasanya — 100% kopi murni, tanpa campuran, tanpa kompromi.
+        </p>
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <a href="#origin" class="bg-gold text-ink font-semibold px-6 py-3 rounded-full text-sm hover:bg-parchment2 transition">Jelajahi Karakter Rasa</a>
+          <a href="#harga" class="border border-parchment2/30 text-parchment2 font-semibold px-6 py-3 rounded-full text-sm hover:border-gold hover:text-gold transition">Cek Daftar Harga</a>
+        </div>
+      </div>
+
+      <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-parchment2/15 pt-8">
+        <div v-for="v in valueProps" :key="v.title" class="flex items-start gap-3">
+          <div class="text-gold mt-0.5" v-html="v.icon"></div>
+          <div>
+            <p class="text-sm font-semibold text-parchment2">{{ v.title }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTRO / BRAND STORY STRIP -->
+  <section class="bg-parchment2 py-10 border-b border-ink/10">
+    <div class="max-w-6xl mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center gap-4 md:gap-10 justify-center text-center md:text-left">
+      <p class="font-display italic text-xl md:text-2xl text-ink/80 max-w-2xl">"Setiap cangkir KOHEN adalah perjalanan rasa dari Nusantara."</p>
+      <div class="hidden md:block w-px h-10 bg-ink/15"></div>
+      <p class="text-xs font-mono tracking-widest uppercase text-ink/50">100% Kopi Murni · Kualitas Grade 1</p>
+    </div>
+  </section>
+
+  <!-- FLAVOR EXPLORER -->
+  <section id="origin" class="max-w-6xl mx-auto px-6 md:px-10 py-24">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div>
+        <p class="text-xs font-mono tracking-[0.25em] uppercase text-ink/50 mb-3">Paspor Rasa Nusantara</p>
+        <h2 class="font-display font-semibold text-4xl md:text-5xl">Karakter Rasa<br class="hidden md:block"> Setiap Origin</h2>
+      </div>
+      <p class="max-w-sm text-ink/60 text-sm leading-relaxed">22 origin pilihan dari tiga jalur rasa: Robusta yang pekat, Arabika yang segar berbuah, dan Arabika Wine dengan fermentasi unik.</p>
+    </div>
+
+    <!-- Category tabs -->
+    <div class="flex flex-wrap gap-2 mb-10 border-b border-ink/10 pb-1">
+      <button v-for="cat in categories" :key="cat.key"
+        @click="activeCategory = cat.key"
+        class="px-5 py-2.5 rounded-t-lg text-sm font-semibold flex items-center gap-2 transition"
+        :class="activeCategory === cat.key ? 'text-ink' : 'text-ink/40 hover:text-ink/70'">
+        <span class="w-2 h-2 rounded-full" :style="{ background: cat.color }"></span>
+        {{ cat.label }}
+        <span class="text-xs font-mono opacity-50">({{ originsByCategory(cat.key).length }})</span>
+      </button>
+    </div>
+    <div class="h-px bg-ink -mt-11 mb-10 transition-all duration-300 relative -top-1" :style="{ width: '0px' }"></div>
+
+    <p class="font-display italic text-lg text-ink/70 mb-8" :style="{ color: activeCatObj.color }">
+      {{ activeCatObj.tagline }}
+    </p>
+
+    <transition-group name="card-flip" tag="div" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div v-for="(o, i) in originsByCategory(activeCategory)" :key="o.name + activeCategory"
+        class="group bg-parchment2 border border-ink/10 rounded-2xl p-6 hover:border-ink/30 hover:shadow-lg transition relative overflow-hidden">
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <p class="text-[11px] font-mono uppercase tracking-widest text-ink/40 mb-1">{{ o.province }}</p>
+            <h3 class="font-display font-semibold text-xl">{{ o.name }}</h3>
+          </div>
+          <div class="stamp-badge shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-mono text-xs font-semibold"
+               :style="{ color: activeCatObj.color }">
+            {{ String(i + 1).padStart(2, '0') }}
+          </div>
+        </div>
+        <ul class="space-y-1.5">
+          <li v-for="note in o.notes" :key="note" class="text-sm text-ink/70 flex items-center gap-2">
+            <span class="w-1 h-1 rounded-full shrink-0" :style="{ background: activeCatObj.color }"></span>
+            {{ note }}
+          </li>
+        </ul>
+      </div>
+    </transition-group>
+  </section>
+
+  <!-- SIGNATURE SERIES -->
+  <section id="signature" class="bg-ink text-parchment2 py-24 grain">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-mono tracking-[0.25em] uppercase text-gold mb-3">Andalan Kohen</p>
+      <h2 class="font-display font-semibold text-4xl md:text-5xl mb-12">Signature Series</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div v-for="s in signatureSeries" :key="s.name" class="border border-parchment2/15 rounded-2xl p-8 hover:border-gold/60 transition">
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="font-display font-semibold text-2xl">{{ s.name }}</h3>
+            <span class="text-gold text-2xl">☙</span>
+          </div>
+          <p class="text-parchment2/60 text-sm mb-6">{{ s.desc }}</p>
+          <div class="flex items-center gap-6 font-mono text-sm">
+            <div>
+              <p class="text-parchment2/40 text-xs mb-1">100 gr</p>
+              <p class="text-gold font-semibold text-lg">{{ s.price100 }}</p>
+            </div>
+            <div class="w-px h-8 bg-parchment2/15"></div>
+            <div>
+              <p class="text-parchment2/40 text-xs mb-1">500 gr</p>
+              <p class="text-gold font-semibold text-lg">{{ s.price500 }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICE LIST -->
+  <section id="harga" class="max-w-6xl mx-auto px-6 md:px-10 py-24">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+      <div>
+        <p class="text-xs font-mono tracking-[0.25em] uppercase text-ink/50 mb-3">Biji Kopi Pilihan Kualitas Grade 1</p>
+        <h2 class="font-display font-semibold text-4xl md:text-5xl">Daftar Harga Biji</h2>
+      </div>
+      <!-- weight toggle -->
+      <div class="inline-flex bg-parchment2 rounded-full p-1 border border-ink/10 self-start">
+        <button @click="activeWeight = '100'" class="px-5 py-2 rounded-full text-sm font-mono font-semibold transition" :class="activeWeight === '100' ? 'bg-ink text-parchment' : 'text-ink/50'">100 gr</button>
+        <button @click="activeWeight = '500'" class="px-5 py-2 rounded-full text-sm font-mono font-semibold transition" :class="activeWeight === '500' ? 'bg-ink text-parchment' : 'text-ink/50'">500 gr</button>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap gap-2 mb-6">
+      <button v-for="cat in priceCategories" :key="cat.key"
+        @click="activePriceCategory = cat.key"
+        class="px-4 py-2 rounded-full text-xs font-mono font-semibold uppercase tracking-wide transition border"
+        :class="activePriceCategory === cat.key ? 'bg-ink text-parchment border-ink' : 'border-ink/15 text-ink/50 hover:border-ink/40'">
+        {{ cat.label }}
+      </button>
+    </div>
+
+    <div class="bg-parchment2 rounded-2xl border border-ink/10 overflow-hidden">
+      <table class="w-full text-left">
+        <thead>
+          <tr class="border-b border-ink/10 text-[11px] font-mono uppercase tracking-widest text-ink/40">
+            <th class="py-4 px-6 font-medium">Origin</th>
+            <th class="py-4 px-6 font-medium text-right">Harga / {{ activeWeight }} gr</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(p, idx) in pricesByCategory(activePriceCategory)" :key="p.name"
+              class="border-b border-ink/5 last:border-0 hover:bg-parchment transition">
+            <td class="py-4 px-6 flex items-center gap-3">
+              <span class="text-[11px] font-mono text-ink/30 w-5">{{ String(idx+1).padStart(2,'0') }}</span>
+              <span class="font-medium">{{ p.name }}</span>
+            </td>
+            <td class="py-4 px-6 text-right font-mono font-semibold text-lg">
+              {{ activeWeight === '100' ? p.price100 : p.price500 }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-8 grid sm:grid-cols-2 gap-6">
+      <div class="bg-parchment2 rounded-2xl border border-ink/10 p-6">
+        <p class="text-xs font-mono uppercase tracking-widest text-ink/40 mb-3">Tersedia</p>
+        <div class="flex gap-6 text-sm font-medium">
+          <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span>Biji Kopi</span>
+          <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-gold"></span>Kopi Giling</span>
+        </div>
+      </div>
+      <div class="bg-parchment2 rounded-2xl border border-ink/10 p-6">
+        <p class="text-xs font-mono uppercase tracking-widest text-ink/40 mb-3">Tingkat Gilingan</p>
+        <div class="flex gap-6 text-sm font-medium">
+          <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-robusta"></span>Halus</span>
+          <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-arabika"></span>Sedang</span>
+          <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-wine"></span>Kasar</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREWING METHODS -->
+  <section id="seduh" class="bg-parchment2 py-24 border-y border-ink/10">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <p class="text-xs font-mono tracking-[0.25em] uppercase text-ink/50 mb-3">Cocok Untuk</p>
+      <h2 class="font-display font-semibold text-4xl md:text-5xl mb-14">Cara Seduh Favoritmu</h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+        <div v-for="m in brewMethods" :key="m.name" class="flex flex-col items-center text-center gap-3 group">
+          <div class="w-16 h-16 rounded-full border border-ink/15 flex items-center justify-center group-hover:border-gold group-hover:text-gold transition text-ink/70" v-html="m.icon"></div>
+          <p class="text-sm font-semibold">{{ m.name }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-ink text-parchment2/70 pt-20 pb-10">
+    <div class="max-w-6xl mx-auto px-6 md:px-10">
+      <div class="grid md:grid-cols-3 gap-12 pb-14 border-b border-parchment2/10">
+        <div>
+          <p class="font-display font-semibold text-2xl text-parchment2 mb-3">KOHEN</p>
+          <p class="text-sm leading-relaxed">Kopi Hitam Enak dari Seluruh Nusantara. Melayani ecer & grosir, siap kirim ke seluruh Indonesia.</p>
+        </div>
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-gold mb-4">Lokasi</p>
+          <p class="text-sm">Lubuklinggau, Sumatera Selatan</p>
+          <p class="text-sm mt-2 text-parchment2/50">Grade 1 — kualitas pilihan untuk cita rasa kopi hitam yang kuat, bersih, dan nikmat.</p>
+        </div>
+        <div>
+          <p class="text-xs font-mono uppercase tracking-widest text-gold mb-4">Ikuti Kami</p>
+          <p class="text-sm">Facebook — Kohen Coffee</p>
+          <p class="text-sm mt-1">Instagram — @kohen.coffee</p>
+        </div>
+      </div>
+      <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-3 text-xs font-mono text-parchment2/40">
+        <p>© 2026 KOHEN Coffee — Kopi Hitam Enak, Kualitas Terjamin.</p>
+        <p>#KOHENKOPIHITAMENAK</p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const iconCup = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3c-.5 1 .5 1.5 0 2.5" /><path d="M12 3c-.5 1 .5 1.5 0 2.5"/></svg>`;
+const iconTruck = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 8h13v9H1z"/><path d="M14 11h4l3 3v3h-7z"/><circle cx="6" cy="19" r="1.6"/><circle cx="17.5" cy="19" r="1.6"/></svg>`;
+const iconBox = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/></svg>`;
+const iconStar = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6-5.3-3-5.3 3 1.2-6L3.4 9.3l6-.7L12 3z"/></svg>`;
+
+const iconKopiHitam = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 9h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V9z"/><path d="M17 10h1.5a2.3 2.3 0 0 1 0 4.6H17"/></svg>`;
+const iconTubruk = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 10h14l-1.3 8.2A2 2 0 0 1 15.7 20H8.3a2 2 0 0 1-2-1.8L5 10z"/><path d="M8 10V6a4 4 0 0 1 8 0v4"/></svg>`;
+const iconEspresso = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="11" width="9" height="7" rx="1.5"/><path d="M15 12h2a2 2 0 0 1 0 4h-2"/><path d="M6 8h9"/></svg>`;
+const iconManual = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 5h12l-2.5 7.5a1 1 0 0 1-.9.7L12 13.5l-2.6-.3a1 1 0 0 1-.9-.7L6 5z"/><path d="M12 13.5V19"/><path d="M8.5 19h7"/></svg>`;
+const iconFrench = `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="9" width="12" height="10" rx="1"/><path d="M12 3v6"/><circle cx="12" cy="3" r="1.4"/></svg>`;
+
+new Vue({
+  el: '#app',
+  data: {
+    activeCategory: 'robusta',
+    activePriceCategory: 'robusta',
+    activeWeight: '100',
+
+    valueProps: [
+      { title: 'Melayani Ecer & Grosir', icon: iconBox },
+      { title: 'Siap Kirim Seluruh Indonesia', icon: iconTruck },
+      { title: 'Kemasan Aman & Premium', icon: iconStar },
+      { title: 'Kepuasan Anda Prioritas Kami', icon: iconCup },
+    ],
+
+    categories: [
+      { key: 'robusta', label: 'Robusta Series', color: '#8B5A2B', tagline: 'Kuat, pekat, pahit nikmat, body tebal.' },
+      { key: 'arabika', label: 'Arabika Series', color: '#52633C', tagline: 'Wangi, segar, rasa buah, body lebih halus.' },
+      { key: 'wine', label: 'Arabika Wine Series', color: '#6E2436', tagline: 'Proses fermentasi wine, aroma buah, rasa unik.' },
+    ],
+
+    origins: [
+      // Robusta
+      { cat: 'robusta', name: 'Robusta Lanang', province: 'Sumatera Selatan', notes: ['Kuat', 'Pekat', 'Pahit nikmat', 'Body tebal'] },
+      { cat: 'robusta', name: 'Aceh Gayo', province: 'Aceh', notes: ['Kuat', 'Aroma cokelat', 'Aftertaste lembut'] },
+      { cat: 'robusta', name: 'Mandheling', province: 'Sumatera Utara', notes: ['Pahit mantap', 'Aroma herbal', 'Body tebal'] },
+      { cat: 'robusta', name: 'Sidikalang', province: 'Sumatera Utara', notes: ['Kuat', 'Sedikit rempah', 'Aftertaste panjang'] },
+      { cat: 'robusta', name: 'Lubuklinggau', province: 'Sumatera Selatan', notes: ['Pahit kuat', 'Aroma kacang', 'Cokelat hitam', 'Body tebal'] },
+      { cat: 'robusta', name: 'Kerinci', province: 'Jambi', notes: ['Pahit seimbang', 'Aroma kayu', 'Cokelat ringan', 'Body sedang'] },
+      { cat: 'robusta', name: 'Lampung', province: 'Lampung', notes: ['Pekat', 'Cokelat hitam', 'Body kuat'] },
+      { cat: 'robusta', name: 'Temanggung', province: 'Jawa Tengah', notes: ['Aroma tembakau', 'Body tebal', 'Pahit mantap'] },
+      { cat: 'robusta', name: 'Garut', province: 'Jawa Barat', notes: ['Pahit ringan', 'Cokelat', 'Mudah diminum'] },
+      { cat: 'robusta', name: 'Dampit', province: 'Jawa Timur', notes: ['Kuat', 'Earthy', 'Body tebal'] },
+      { cat: 'robusta', name: 'Pagar Alam', province: 'Sumatera Selatan', notes: ['Pahit mantap', 'Aroma kacang', 'Cokelat', 'Body tebal'] },
+      { cat: 'robusta', name: 'Lintong', province: 'Sumatera Utara', notes: ['Pekat', 'Rempah ringan', 'Cokelat', 'Body kuat'] },
+      { cat: 'robusta', name: 'Toraja', province: 'Sulawesi Selatan', notes: ['Seimbang', 'Rempah', 'Sedikit manis'] },
+      { cat: 'robusta', name: 'Bali', province: 'Bali', notes: ['Rempah ringan', 'Cokelat', 'Halus'] },
+      { cat: 'robusta', name: 'Flores', province: 'Nusa Tenggara Timur', notes: ['Cokelat', 'Rempah', 'Body tebal'] },
+      // Arabika
+      { cat: 'arabika', name: 'Aceh Gayo', province: 'Aceh', notes: ['Wangi', 'Sedikit asam segar', 'Rasa buah ringan', 'Body medium'] },
+      { cat: 'arabika', name: 'Mandheling', province: 'Sumatera Utara', notes: ['Wangi herbal', 'Cokelat', 'Body lebih tebal'] },
+      { cat: 'arabika', name: 'Kerinci', province: 'Jambi', notes: ['Wangi buah', 'Manis alami', 'Segar', 'Body medium'] },
+      { cat: 'arabika', name: 'Toraja', province: 'Sulawesi Selatan', notes: ['Wangi rempah', 'Manis', 'Seimbang', 'Body medium'] },
+      // Wine
+      { cat: 'wine', name: 'Aceh Gayo Wine', province: 'Aceh', notes: ['Aroma buah', 'Manis', 'Karakter wine', 'Aftertaste panjang'] },
+      { cat: 'wine', name: 'Flores Wine', province: 'Nusa Tenggara Timur', notes: ['Aroma buah tropis', 'Manis', 'Karakter wine', 'Aftertaste panjang'] },
+      { cat: 'wine', name: 'Mandheling Wine', province: 'Sumatera Utara', notes: ['Aroma berry', 'Manis', 'Karakter wine', 'Aftertaste lembut'] },
+    ],
+
+    signatureSeries: [
+      { name: 'KOHEN Kopi Linggau', desc: 'Blend andalan rumah Kohen dari tanah kelahiran kami, Lubuklinggau.', price100: '15K', price500: '75K' },
+      { name: 'KOHEN Robusta Lanang', desc: 'Biji lanang langka dengan karakter kuat, pekat, dan body paling tebal.', price100: '30K', price500: '130K' },
+    ],
+
+    priceCategories: [
+      { key: 'signature', label: 'Signature' },
+      { key: 'robusta', label: 'Robusta' },
+      { key: 'arabika', label: 'Arabika' },
+      { key: 'wine', label: 'Arabika Wine' },
+    ],
+
+    prices: [
+      { cat: 'signature', name: 'KOHEN Kopi Linggau', price100: '15K', price500: '75K' },
+      { cat: 'signature', name: 'KOHEN Robusta Lanang', price100: '30K', price500: '130K' },
+
+      { cat: 'robusta', name: 'Lubuk Linggau', price100: '20K', price500: '85K' },
+      { cat: 'robusta', name: 'Aceh Gayo', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Mandailing', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Sidikalang', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Lintong', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Kerinci', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Pagar Alam', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Lampung', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Temanggung', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Garut', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Dampit', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Bondowoso', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Toraja', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Bali', price100: '25K', price500: '115K' },
+      { cat: 'robusta', name: 'Flores', price100: '25K', price500: '115K' },
+
+      { cat: 'arabika', name: 'Aceh Gayo', price100: '40K', price500: '170K' },
+      { cat: 'arabika', name: 'Mandeiling', price100: '40K', price500: '170K' },
+      { cat: 'arabika', name: 'Kerinci', price100: '40K', price500: '170K' },
+      { cat: 'arabika', name: 'Toraja', price100: '40K', price500: '170K' },
+
+      { cat: 'wine', name: 'Aceh Gayo Wine', price100: '50K', price500: '200K' },
+      { cat: 'wine', name: 'Flores Wine', price100: '50K', price500: '200K' },
+    ],
+
+    brewMethods: [
+      { name: 'Kopi Hitam', icon: iconKopiHitam },
+      { name: 'Tubruk', icon: iconTubruk },
+      { name: 'Espresso', icon: iconEspresso },
+      { name: 'Manual Brew', icon: iconManual },
+      { name: 'French Press', icon: iconFrench },
+    ],
+  },
+  computed: {
+    activeCatObj() {
+      return this.categories.find(c => c.key === this.activeCategory);
+    }
+  },
+  methods: {
+    originsByCategory(cat) {
+      return this.origins.filter(o => o.cat === cat);
+    },
+    pricesByCategory(cat) {
+      return this.prices.filter(p => p.cat === cat);
+    }
+  }
+});
+</script>
+</body>
+</html>
